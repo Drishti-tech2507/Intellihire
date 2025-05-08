@@ -98,7 +98,6 @@
       <button onclick="window.location.href='category.html'" class="btn">Schedule Now</button>
     </div>
 
-    <!-- This message will be shown after clicking "Join Meeting" -->
     <div id="confirmationMessage" class="confirmation-message" style="display: none;">
       <p>You will be shortly allowed to join the interview at your scheduled time.</p>
     </div>
@@ -116,20 +115,28 @@
     }
 
     function joinMeeting() {
-      // Hide the Join button and display the confirmation message
-      const joinButton = document.querySelector("button");
+      const joinButton = document.querySelector("#joinMeetingContainer .btn");
       const confirmationMessage = document.getElementById("confirmationMessage");
 
-      joinButton.style.display = "none";
-      confirmationMessage.style.display = "block";
+      const scheduledDateTime = new Date(`${scheduled.date}T${scheduled.time}:00`);
+      const currentDateTime = new Date();
 
-      // Optionally, you can set a timer to redirect after a short delay
-      setTimeout(() => {
-        // Redirect to the interview page (customize if needed)
-        window.location.href = "interview.html?role=" + encodeURIComponent(scheduled.role);
-      }, 3000); // Delay in milliseconds (3 seconds here)
+      if (currentDateTime >= scheduledDateTime) {
+        // Allowed to join
+        joinButton.style.display = "none";
+        confirmationMessage.style.display = "block";
+
+        setTimeout(() => {
+          window.location.href = "interview.html?role=" + encodeURIComponent(scheduled.role);
+        }, 3000);
+      } else {
+        // Not allowed yet
+        alert("You will be allowed to join at your respective time slot only.");
+        // After alert, stay on the dashboard (no redirection needed)
+      }
     }
   </script>
 
 </body>
 </html>
+
