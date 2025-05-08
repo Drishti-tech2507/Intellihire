@@ -123,6 +123,11 @@
       display: flex;
       justify-content: center;
     }
+
+    #loginBtn {
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +156,9 @@
           <button class="continue-btn" type="submit">Continue</button>
         </form>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+        <!-- Optional login button (appears after continue) -->
+        <button id="loginBtn" class="continue-btn">Login</button>
       </div>
     </div>
   </div>
@@ -162,16 +170,25 @@
       console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail());
-      window.location.href = "home.html";
+      window.location.href = "home.html"; // Ensure this file exists in your repo
     }
 
     function handleTraditionalLogin(event) {
       event.preventDefault();
       console.log("Traditional login submitted");
+
+      // ✅ OPTION 1: Redirect to home.html (REQUIRES home.html file in repo)
       window.location.href = "home.html";
+
+      // ❗OPTION 2 (uncomment below to show login button instead):
+      /*
+      document.getElementById("traditional-login").style.display = "none";
+      document.getElementById("loginBtn").style.display = "block";
+      */
     }
   </script>
 </body>
 </html>
+
 
 
