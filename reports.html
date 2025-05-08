@@ -3,191 +3,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Professional Resume Builder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <title>Interview Reports Dashboard</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      background: #f0f0f0;
-      color: #333;
-      padding: 20px;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e8f0f2;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      color: #111827;
     }
-    h1, h2 {
-      color: #0f172a;
+    h2 {
+      margin-bottom: 10px;
     }
-    form {
+    .metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 20px;
+      margin-bottom: 30px;
     }
-    form textarea, form input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    form textarea {
-      grid-column: span 2;
-    }
-    button {
-      padding: 10px 15px;
-      margin-right: 10px;
-      background: #101ee3;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #resumePreview {
+    .card {
       background: white;
-      padding: 30px;
-      margin-top: 30px;
-      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    .section {
-      margin-bottom: 20px;
-    }
-    .section h3 {
-      margin-bottom: 5px;
-      border-bottom: 1px solid #ccc;
-    }
-    #atsScore {
-      margin-top: 10px;
-      font-weight: bold;
-      color: #101ee3;
-    }
-    .resume-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .resume-header h2 {
-      font-size: 32px;
+    .card h3 {
       margin: 0;
-      color: #1a0033;
+      font-size: 18px;
+      color: #64748b;
     }
-    .resume-header p {
-      margin: 5px 0;
-      color: #2b0057;
-      font-size: 14px;
+    .card p {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 5px;
     }
-    .resume-header a {
-      color: #2b0057;
+    .chart-section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+    canvas {
+      max-width: 100%;
+      height: 100% !important;
+      width: auto !important;
+    }
+    .legend {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .legend span {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .green { background: #22c55e; color: white; }
+    .blue { background: #3b82f6; color: white; }
+    .red { background: #ef4444; color: white; }
+    .gray { background: #6b7280; color: white; }
+
+    .footer {
+      padding: 30px 50px;
+      background: #FEFEFE;
+      color: black;
+      text-align: center;
+    }
+    .footer .social a {
+      color: black;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+    .footer .social a:hover {
+      color: #9cb3ff;
+    }
+    .footer .list {
+      list-style: none;
+      margin: 20px 0;
+      padding: 0;
+    }
+    .footer .list li {
+      display: inline;
+      margin: 0 10px;
+    }
+    .footer .list a {
+      color: black;
       text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer .list a:hover {
+      color: #9cb3ff;
+    }
+    .footer p {
+      font-size: 0.9rem;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Build Your Resume</h1>
-    <form id="resumeForm">
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email ID" required />
-      <input type="text" id="contact" placeholder="Contact Number" />
-      <input type="text" id="github" placeholder="GitHub URL" />
-      <input type="text" id="linkedin" placeholder="LinkedIn URL" />
-      <textarea id="education" placeholder="Education Details"></textarea>
-      <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
-      <textarea id="internships" placeholder="Internships"></textarea>
-      <textarea id="projects" placeholder="Projects"></textarea>
-      <textarea id="extra" placeholder="Extra Curricular"></textarea>
-      <button type="submit">Generate Resume</button>
-    </form>
 
-    <div style="margin-top: 20px;">
-      <h2>ATS Score Checker</h2>
-      <button onclick="checkATS()">Check ATS Score</button>
-      <p id="atsScore"></p>
+  <h2>Interview Reports</h2>
+  <p>View and analyze your past interview sessions.</p>
+
+  <div class="metrics">
+    <div class="card">
+      <h3>Total Interviews</h3>
+      <p id="total">0</p>
     </div>
-
-    <div style="margin-top: 20px;">
-      <button onclick="downloadPDF()">Download PDF</button>
-      <button onclick="downloadJPEG()">Download JPEG</button>
-      <button onclick="downloadDOCX()">Download DOCX</button>
+    <div class="card">
+      <h3>Successful</h3>
+      <p id="successful">0</p>
     </div>
-
-    <div id="resumePreview" style="display:none;"></div>
+    <div class="card">
+      <h3>Avg. Duration</h3>
+      <p id="duration">0 min</p>
+    </div>
+    <div class="card">
+      <h3>Feedback Score</h3>
+      <p id="feedback">0.0/5</p>
+    </div>
   </div>
 
+  <div class="chart-section">
+    <h3>Interview Status</h3>
+    <div class="chart-wrapper">
+      <canvas id="statusChart"></canvas>
+    </div>
+    <div class="legend">
+      <span class="green">Completed</span>
+      <span class="blue">Scheduled</span>
+      <span class="red">Cancelled</span>
+      <span class="gray">No Show</span>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <h3>Interviews by Position</h3>
+    <div class="chart-wrapper">
+      <canvas id="positionChart"></canvas>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="social">
+      <a href="https://github.com" target="_blank"><i class='bx bxl-github'></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
+      <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+    </div>
+    <ul class="list">
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">About page</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright">
+      <i class='bx bx-copyright'></i>
+      Drishti Chopra | All rights are reserved
+    </p>
+  </footer>
+
   <script>
-    const keywords = ["JavaScript", "HTML", "CSS", "Python", "Java", "React", "Node.js", "SQL", "Machine Learning", "Cybersecurity"];
+    const interviewData = [
+      { status: "Completed", position: "Frontend Developer", duration: 40, feedback: 4.5 },
+      { status: "Scheduled", position: "Backend Developer", duration: 0, feedback: 0 },
+      { status: "Completed", position: "AI Analyst", duration: 50, feedback: 4.2 },
+      { status: "Cancelled", position: "Cybersecurity Analyst", duration: 0, feedback: 0 },
+      { status: "No Show", position: "AI Analyst", duration: 0, feedback: 0 },
+      { status: "Completed", position: "Frontend Developer", duration: 45, feedback: 4.7 },
+      { status: "Completed", position: "AI Analyst", duration: 42, feedback: 4.0 },
+    ];
 
-    document.getElementById('resumeForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const preview = document.getElementById('resumePreview');
-      preview.style.display = 'block';
+    const totalInterviews = interviewData.length;
+    const successfulInterviews = interviewData.filter(i => i.status === "Completed").length;
+    const totalDuration = interviewData.filter(i => i.duration > 0).reduce((sum, i) => sum + i.duration, 0);
+    const avgDuration = successfulInterviews ? Math.round(totalDuration / successfulInterviews) : 0;
+    const totalFeedback = interviewData.filter(i => i.feedback > 0).reduce((sum, i) => sum + i.feedback, 0);
+    const avgFeedback = successfulInterviews ? (totalFeedback / successfulInterviews).toFixed(1) : "0.0";
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const contact = document.getElementById('contact').value;
-      const github = document.getElementById('github').value;
-      const linkedin = document.getElementById('linkedin').value;
-      const education = document.getElementById('education').value;
-      const skills = document.getElementById('skills').value;
-      const internships = document.getElementById('internships').value;
-      const projects = document.getElementById('projects').value;
-      const extra = document.getElementById('extra').value;
+    document.getElementById("total").innerText = totalInterviews;
+    document.getElementById("successful").innerText = successfulInterviews;
+    document.getElementById("duration").innerText = `${avgDuration} min`;
+    document.getElementById("feedback").innerText = `${avgFeedback}/5`;
 
-      preview.innerHTML = `
-        <div class="resume-header">
-          <h2>${name}</h2>
-          <p>
-            ${email} | ${contact} | 
-            <a href="${github}" target="_blank">${github}</a> |
-            <a href="${linkedin}" target="_blank">${linkedin}</a>
-          </p>
-        </div>
-        <div class="section"><h3>Education</h3><p>${education}</p></div>
-        <div class="section"><h3>Skills</h3><p>${skills}</p></div>
-        <div class="section"><h3>Internships</h3><p>${internships}</p></div>
-        <div class="section"><h3>Projects</h3><p>${projects}</p></div>
-        <div class="section"><h3>Extra Curricular</h3><p>${extra}</p></div>
-      `;
+    const statusCounts = {
+      Completed: 0,
+      Scheduled: 0,
+      Cancelled: 0,
+      "No Show": 0
+    };
+    interviewData.forEach(i => statusCounts[i.status]++);
+
+    new Chart(document.getElementById("statusChart"), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(statusCounts),
+        datasets: [{
+          data: Object.values(statusCounts),
+          backgroundColor: ['#22c55e', '#3b82f6', '#ef4444', '#6b7280'],
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: { display: false }
+        }
+      }
     });
 
-    function checkATS() {
-      const skills = document.getElementById('skills').value.toLowerCase();
-      let matched = 0;
-      keywords.forEach(keyword => {
-        if (skills.includes(keyword.toLowerCase())) matched++;
-      });
-      const score = Math.floor((matched / keywords.length) * 100);
-      document.getElementById('atsScore').innerText = `Your resume ATS score is ${score}/100`;
-    }
+    const positionCounts = {};
+    interviewData.forEach(i => {
+      if (!positionCounts[i.position]) positionCounts[i.position] = 0;
+      positionCounts[i.position]++;
+    });
 
-    async function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const canvas = await html2canvas(document.getElementById("resumePreview"));
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
-      pdf.save("resume.pdf");
-    }
-
-    async function downloadJPEG() {
-      const canvas = await html2canvas(document.getElementById("resumePreview"));
-      const imgData = canvas.toDataURL("image/jpeg");
-      const link = document.createElement("a");
-      link.href = imgData;
-      link.download = "resume.jpg";
-      link.click();
-    }
-
-    function downloadDOCX() {
-      const text = document.getElementById("resumePreview").innerText;
-      const blob = new Blob([text], { type: "application/msword" });
-      saveAs(blob, "resume.doc");
-    }
+    new Chart(document.getElementById("positionChart"), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(positionCounts),
+        datasets: [{
+          label: 'Interviews',
+          data: Object.values(positionCounts),
+          backgroundColor: '#2563eb'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
   </script>
+
 </body>
 </html>
