@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Intellihire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fa;
+    }
+
+    header {
+      background-color: #2c3e50;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .meeting-box {
+      border: 2px solid #2c3e50;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #ecf0f1;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      background-color: #34495e;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Welcome to Intellihire Dashboard</h2>
+  </header>
+
+  <div class="container">
+    <h1>Your Dashboard</h1>
+
+    <div id="joinMeetingContainer" class="meeting-box" style="display: none;">
+      <h2>Upcoming Interview</h2>
+      <p id="meetingInfo"></p>
+      <button onclick="joinMeeting()" class="btn">Join Meeting</button>
+    </div>
+
+    <div class="meeting-box" style="background-color: #dfe6e9;">
+      <h3>Need to Schedule Another Interview?</h3>
+      <button onclick="window.location.href='category.html'" class="btn">Schedule Now</button>
+    </div>
+  </div>
+
+  <script>
+    const scheduled = JSON.parse(localStorage.getItem("interviewSchedule"));
+
+    if (scheduled) {
+      const container = document.getElementById("joinMeetingContainer");
+      const info = document.getElementById("meetingInfo");
+
+      info.textContent = `Role: ${scheduled.role} | Date: ${scheduled.date} | Time: ${scheduled.time}`;
+      container.style.display = "block";
+    }
+
+    function joinMeeting() {
+      alert(`Joining interview for ${scheduled.role}...`);
+
+      // Redirect to actual interview page (customize if needed)
+      window.location.href = "interview.html?role=" + encodeURIComponent(scheduled.role);
+    }
+  </script>
+
+</body>
+</html>

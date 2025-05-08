@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sign-In Example</title>
+
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background-color: #1f242d;
+      margin: 0;
+      flex-direction: column;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .g_id_signin {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome! Please Sign In</h1>
+
+  <!-- Google Sign-In Configuration -->
+  <div id="g_id_onload"
+       data-client_id="511954025051-nfn6r46qrduuv115cqj312sck8joodgu.apps.googleusercontent.com"
+       data-context="signin"
+       data-ux_mode="popup"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+
+  <!-- Sign-In Button -->
+  <div class="g_id_signin"
+       data-type="standard"
+       data-shape="rectangular"
+       data-theme="filled_black"
+       data-text="continue_with"
+       data-size="large"
+       data-logo_alignment="left">
+  </div>
+
+  <!-- Script to handle sign-in -->
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+      
+      // Optional: Decode the JWT for debugging (never trust it without backend verification)
+      const token = response.credential;
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log("User Info:", payload);
+
+      alert("Hello, " + payload.name + "!");
+    }
+  </script>
+</body>
+</html>

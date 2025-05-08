@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Interview | IntelliHire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .left-side {
+      flex: 1;
+      background: url('/Users/drishti/Desktop/Interview/7c940b19-3809-4474-a4f3-7f152bea138f.jpeg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .welcome-text {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      color: #fff;
+      max-width: 400px;
+    }
+
+    .welcome-text h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-text p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .right-panel {
+      flex: 1;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .form-box {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-box h2 {
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .form-box p {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .form-box label {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .continue-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .continue-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .g-signin2 {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-side">
+      <div class="welcome-text">
+        <h1>Welcome to Intellihire</h1>
+        <p>Register yourself for achieving your dream job & position</p>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="form-box">
+        <h2>Sign in</h2>
+        <p>Welcome back! Please sign in to continue</p>
+        <form id="traditional-login" onsubmit="return handleTraditionalLogin(event)">
+          <label>Full name</label>
+          <input type="text" placeholder="Enter your full name" required />
+          <label>Email address</label>
+          <input type="email" placeholder="Enter your email address" required />
+          <label>University</label>
+          <input type="text" placeholder="Enter your university name" required />
+          <label>Passing Out Year</label>
+          <input type="text" placeholder="Enter your pass out year" required />
+          <label>Password</label>
+          <input type="password" placeholder="Enter your password" required />
+          <button class="continue-btn" type="submit">Continue</button>
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId());
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail());
+      window.location.href = "home.html";
+    }
+
+    function handleTraditionalLogin(event) {
+      event.preventDefault();
+      console.log("Traditional login submitted");
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>
+
+

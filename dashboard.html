@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to your Personal Interview assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #9cb3ff;
+    }
+    /* Reset and base styles */
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    color: black;
+    line-height: 1.6;
+    background-color: #FEFEFE; /* fallback background */
+    position: relative;
+}
+
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('image.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  /* Dark overlay */
+  background-color: rgba(238, 238, 238, 0.6); /* fallback color */
+  background-blend-mode: lighten;
+}
+
+
+
+/* Header */
+.header {
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FEFEFE; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #9cb3ff;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #9cb3ff;
+}
+.logo:hover {
+    color: #9cb3ff;
+    transform: scale(1.1);
+}
+/* Dropdown styles */
+.navbar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  z-index: 999;
+  min-width: 180px;
+  border-radius: 8px;
+
+  /* For scrollbar */
+  max-height: 300px; /* adjust based on need */
+  overflow-y: auto;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Scrollbar styling */
+.dropdown-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #cbd6fb;
+  border-radius: 5px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #9cb3ff;
+}
+
+/* Firefox */
+.dropdown-menu {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd6fb #9cb3ff;
+}
+
+
+
+.navbar a {
+    color: black;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #9cb3ff;
+}
+
+.join-btn {
+    background-color: #2b4392;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.join-btn:hover {
+    background-color: #9cb3ff;
+}
+
+/* Home Section */
+.home {
+    padding-top: 150px;
+    padding-left: 12%;
+    padding-right: 12%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: brightness(0.95);
+}
+
+.home-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.home-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: black;
+}
+
+.get-started-btn {
+    padding: 12px 24px;
+    background-color: #2b4392;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: background 0.3s ease;
+}
+
+.get-started-btn:hover {
+    background-color: #9cb3ff;
+}
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  .left-side {
+    flex: 1;
+    background: url('/Users/drishti/Desktop/intellihire/7c940b19-3809-4474-a4f3-7f152bea138f.jpeg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+  }
+  
+  .welcome-text {
+    background: rgba(0, 0, 0, 0.5); /* black background, 50% transparent */
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    color: black;
+    max-width: 400px;
+  }
+  
+  .welcome-text h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-text p {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  
+  
+  /* Right Panel with form */
+  .right-panel {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .form-box h2 {
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+  }
+  
+  .form-box p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  
+  /* Form Inputs */
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    text-align: left;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  form input {
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #000;
+  }
+  
+  .signup-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .signup-text a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .signup-text a:hover {
+    text-decoration: underline;
+  }
+  
+
+.home-content h2 {
+    margin-bottom: 10px;
+}
+
+.interview-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.interview-card {
+    background: rgba(255, 253, 253, 0.777);
+    border: 1px solid rgba(255, 253, 253, 0.777);
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    transition: transform 0.3s ease;
+}
+
+.interview-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+    padding: 30px 50px;
+    background: #FEFEFE;
+    color: black;
+    text-align: center;
+}
+
+.footer .social a {
+    color: black;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer .social a:hover {
+    color: #9cb3ff;
+}
+
+.footer .list {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.footer .list li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.footer .list a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer .list a:hover {
+    color: #9cb3ff;
+}
+
+.footer p {
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd6fb;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #9cb3ff;
+}
+
+  </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+     
+    <header class="header">
+        <a href="#" class="logo"><span>Intel</span>lihire</a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+          
+            <div class="dropdown">
+              <a href="#">Category</a>
+              <ul class="dropdown-menu">
+                <li><a href="schedule.html?role=Accountant">Accountant</a></li>
+                <li><a href="schedule.html?role=AI%20Analyst">AI Analyst</a></li>
+                <li><a href="schedule.html?role=Civil%20Engineer">Civil Engineer</a></li>
+                <li><a href="schedule.html?role=Content%20Writer">Content Writer</a></li>
+                <li><a href="schedule.html?role=Cyber%20Analyst">Cyber Analyst</a></li>
+                <li><a href="schedule.html?role=Data%20Analyst">Data Analyst</a></li>
+                <li><a href="schedule.html?role=Data%20Scientist">Data Scientist</a></li>
+                <li><a href="schedule.html?role=Doctor">Doctor</a></li>
+                <li><a href="schedule.html?role=Frontend%20Developer">Frontend Developer</a></li>
+                <li><a href="schedule.html?role=Graphic%20Designer">Graphic Designer</a></li>
+                <li><a href="schedule.html?role=HR%20Manager">HR Manager</a></li>
+                <li><a href="schedule.html?role=Lawyer">Lawyer</a></li>
+                <li><a href="schedule.html?role=Marketing%20Manager">Marketing Manager</a></li>
+                <li><a href="schedule.html?role=Nurse">Nurse</a></li>
+                <li><a href="schedule.html?role=Product%20Manager">Product Manager</a></li>
+                <li><a href="schedule.html?role=Project%20Manager">Project Manager</a></li>
+                <li><a href="schedule.html?role=Sales%20Executive">Sales Executive</a></li>
+                <li><a href="schedule.html?role=Senior%20Manager">Senior Manager</a></li>
+                <li><a href="schedule.html?role=Software%20Developer">Software Developer</a></li>
+                <li><a href="schedule.html?role=Software%20Engineer">Software Engineer</a></li>
+                <li><a href="schedule.html?role=Teacher">Teacher</a></li>
+                <li><a href="schedule.html?role=UI%2FUX%20Designer">UI/UX Designer</a></li>
+              </ul>
+            </div>
+          
+          <a href="/Users/drishti/Desktop/intellihire/reports.html">Reports</a>
+          <a href="/Users/drishti/Desktop/intellihire/buildresume.html"> Build Resume</a>
+        </nav>
+             <div class="btn-box">
+                 <button class="join-btn" onclick="location.href='join.html'">Join the meeting</button>
+              </div>
+      
+    <div class="flex items-center space-x-4">
+      <span id="welcomeText" class="text-sm select-none"></span>
+      <div id="userInitial" class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold select-none"></div>
+    </div>
+  </header>
+
+  <section class="home">
+    <div class="home-content">
+      <h1>Welcome to your Personal Interview assistant</h1>
+      <h3>You have successfully signed in. Start exploring job opportunities tailored for you.</h3>
+      <h2>How it works?</h2>
+      <p>Give mock interview in just simple steps</p>
+      <div class="interview-container">
+        <div class="interview-card">
+          <h3>Select the branch for which you want interview</h3>
+          <p>For eg: You have selected Software Engineer</p>
+        </div>
+        <div class="interview-card">
+          <h3>Then click on start the interview</h3>
+          <p>A window will appear where you can see whether video is on or not like Google Meet etc..</p>
+        </div>
+        <div class="interview-card">
+          <h3>After your interview has been completed</h3>
+          <p>A report will appear which shows with pie chart that these parts are strong and other parts are weak.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="social">
+      <a href="https://github.com" target="_blank"><i class='fab fa-github'></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class='fab fa-linkedin'></i></a>
+      <a href="https://youtube.com" target="_blank"><i class='fab fa-youtube'></i></a>
+    </div>
+    <ul class="list">
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">About page</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright"><i class='far fa-copyright'></i> Drishti Chopra | All rights are reserved</p>
+  </footer>
+
+  <script>
+    const name = localStorage.getItem("userName") || "User";
+    const initial = name.charAt(0).toUpperCase();
+    document.getElementById("welcomeText").textContent = `Welcome, ${name}`;
+    document.getElementById("userInitial").textContent = initial;
+  </script>
+</body>
+</html>

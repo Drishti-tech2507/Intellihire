@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule Interview | Intellihire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .role-text {
+      font-size: 18px;
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+    .field {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="date"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #34495e;
+    }
+
+    .success-message {
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Schedule Your Interview</h1>
+    <div class="role-text" id="roleDisplay">Loading role...</div>
+
+    <div class="field">
+      <label for="date">Select Interview Date:</label>
+      <input type="date" id="date" min="">
+    </div>
+
+    <div class="field">
+      <label for="time">Select Interview Time:</label>
+      <input type="time" id="time">
+    </div>
+
+    <button class="btn" onclick="submitSchedule()">Submit</button>
+    <div class="success-message" id="successMessage"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get("role");
+    document.getElementById("roleDisplay").textContent = role
+      ? `You selected: ${decodeURIComponent(role)}`
+      : "No role selected";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("date").setAttribute("min", today);
+    });
+
+    function submitSchedule() {
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      if (!date || !time) {
+        alert("Please select both date and time.");
+        return;
+      }
+
+      const interviewDetails = {
+        role: decodeURIComponent(role),
+        date: date,
+        time: time
+      };
+
+      localStorage.setItem("interviewSchedule", JSON.stringify(interviewDetails));
+
+      const message = `Interview scheduled for ${interviewDetails.role} on ${date} at ${time}. Redirecting to dashboard...`;
+      document.getElementById("successMessage").textContent = message;
+
+      // Redirect to dashboard after 2 seconds
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>

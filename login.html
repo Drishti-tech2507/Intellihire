@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Sign In</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-lg relative">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center space-x-2">
+        <!-- Embedded Google SVG Icon -->
+        <svg class="w-6 h-6" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#4285F4" d="M533.5 278.4c0-17.5-1.5-35.2-4.5-52.1H272v98.8h146.9c-6.3 33.9-25.1 62.5-53.7 81.7v67.8h86.9c50.8-46.8 81.4-115.9 81.4-196.2z"/>
+          <path fill="#34A853" d="M272 544.3c72.6 0 133.6-24.1 178.1-65.6l-86.9-67.8c-24.1 16.2-54.9 25.5-91.2 25.5-69.9 0-129.2-47.2-150.4-110.4H31.4v69.5C75.3 470.3 166.2 544.3 272 544.3z"/>
+          <path fill="#FBBC05" d="M121.6 326c-10.4-30.9-10.4-64 0-94.9v-69.5H31.4c-33.5 66.9-33.5 145.8 0 212.7l90.2-48.3z"/>
+          <path fill="#EA4335" d="M272 107.3c38.9-.6 76 13.8 104.7 39.2l78.4-78.4C379.7 23.4 327.2 0 272 0 166.2 0 75.3 73.9 31.4 173.7l90.2 69.5C142.8 154.5 202.1 107.3 272 107.3z"/>
+        </svg>
+        <h1 class="font-bold text-lg">Sign in with Google</h1>
+      </div>
+    </div>
+
+    <h2 class="font-extrabold text-xl mb-6">Choose an account</h2>
+
+    <!-- Account Buttons -->
+    <div class="space-y-4 mb-6">
+      <button onclick="loginWithAccount('John Doe', 'john.doe@gmail.com')" class="flex items-center space-x-4 w-full rounded-md px-3 py-2 hover:bg-gray-100">
+        <div class="flex items-center justify-center rounded-full w-12 h-12 bg-indigo-600 text-white font-bold text-xl">J</div>
+        <div class="text-left">
+          <p class="font-bold text-black">John Doe</p>
+          <p class="text-gray-500">john.doe@gmail.com</p>
+        </div>
+      </button>
+
+      <button onclick="loginWithAccount('Dhwani Singh', 'dhwani.singh@gmail.com')" class="flex items-center space-x-4 w-full rounded-md px-3 py-2 hover:bg-gray-100">
+        <div class="flex items-center justify-center rounded-full w-12 h-12 bg-purple-700 text-white font-bold text-xl">D</div>
+        <div class="text-left">
+          <p class="font-bold text-black">Dhwani Singh</p>
+          <p class="text-gray-500">dhwani.singh@gmail.com</p>
+        </div>
+      </button>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- Manual Login Form -->
+    <form id="loginForm" class="space-y-4" onsubmit="handleManualLogin(event)">
+      <div>
+        <label for="email" class="block font-bold text-gray-900 mb-1">Email or phone</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          class="w-full border border-gray-300 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block font-bold text-gray-900 mb-1">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          class="w-full border border-gray-300 rounded-md px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-indigo-600 text-white font-bold py-3 rounded-md hover:bg-indigo-700"
+      >
+        Sign In
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function loginWithAccount(name, email) {
+      alert(`You are successfully logged in as ${name}`);
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userEmail", email);
+      window.location.href = "dashboard.html";
+    }
+
+    function handleManualLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (email && password) {
+        const username = email.split('@')[0]; // basic username from email
+        alert(`You are successfully logged in as ${username}`);
+        localStorage.setItem("userName", username);
+        localStorage.setItem("userEmail", email);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Please enter valid credentials.");
+      }
+    }
+  </script>
+</body>
+</html>
+
